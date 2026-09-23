@@ -1,4 +1,3 @@
-
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -12,7 +11,7 @@ struct contact {
 contact phonebook[size];
 int menu() {
   int ch;
-  system("cls");
+  system("clear");
   cout << "==========================\n";
   cout << "\t PHONEBOOK \t\n";
   cout << "==========================\n";
@@ -35,37 +34,68 @@ int find(int ss = 0) {
   return -1;
 }
 void Add(int n) {
-  system("cls");
+  system("clear");
   cout << "==========================\n";
   cout << "\t Add new contact \t\n";
   cout << "==========================\n";
   cin.get();
   cout << "Please enter first name:";
   getline(cin, phonebook[n].f_name);
-
   cout << "Please enter last name:";
   getline(cin, phonebook[n].l_name);
-
   cout << "Please enter phone number:";
   cin >> phonebook[n].phone;
-
   cout << "Done.......\n";
-  system("pause");
+  cout << "Press Enter...";
+  cin.get();
+  cin.get();
 }
-
 void display() {
-  system("cls");
+  system("clear");
   cout << left << setw(20) << "first name" << setw(20) << "last name"
        << setw(20) << "phone" << endl;
   cout << "==========================================================\n";
-
   for (int i = 0; i < size; i++) {
     if (phonebook[i].phone != 0)
-
       cout << left << setw(20) << phonebook[i].f_name << setw(20)
            << phonebook[i].l_name << setw(20) << phonebook[i].phone << endl;
   }
-  system("pause");
+  cout << "Press Enter...";
+  cin.get();
+  cin.get();
+}
+void del() {
+  system("clear");
+  cout << left << setw(20) << "first name" << setw(20) << "last name"
+       << setw(20) << "phone" << endl;
+  cout << "==========================================================\n";
+  for (int i = 0; i < size; i++) {
+    if (phonebook[i].phone != 0)
+      cout << left << setw(20) << phonebook[i].f_name << setw(20)
+           << phonebook[i].l_name << setw(20) << phonebook[i].phone << endl;
+  }
+  int ss;
+  cout << "phone to delete: " << endl;
+  cin >> ss;
+  int i = find(ss);
+  if (i == -1) {
+    cout << "404, please try again \n";
+    cout << "phone to delete: " << endl;
+    cin >> ss;
+    i = find(ss);
+    if (i == -1) {
+      cout << "Not found\n";
+    } else {
+      phonebook[i] = {"", "", 0};
+      cout << "Deleted \n";
+    }
+  } else {
+    phonebook[i] = {"", "", 0};
+    cout << "Deleted \n";
+  }
+  cout << "Press Enter...";
+  cin.get();
+  cin.get();
 }
 int main() {
   int n, i;
@@ -76,12 +106,11 @@ int main() {
       i = find();
       if (i == -1) {
         cout << "Memory is Full.........\n";
-        system("pause");
+        cout << "Press Enter...";
+        cin.get();
+        cin.get();
       } else
         Add(i);
-      break;
-    case 2:
-      search();
       break;
     case 3:
       display();
@@ -89,18 +118,19 @@ int main() {
     case 4:
       del();
       break;
-    case 5:
-      edit();
-      break;
+    // case 5:
+    //   edit();
+    //   break;
     case 6:
       exit(0);
       break;
     default:
       cout << "Please try again....(1-6)\n";
-      system("pause");
+      cout << "Press Enter...";
+      cin.get();
+      cin.get();
       break;
     }
   }
-
   return 0;
 }
