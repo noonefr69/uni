@@ -97,6 +97,78 @@ void del() {
   cin.get();
   cin.get();
 }
+void edit() {
+  system("clear");
+  cout << left << setw(5) << "idx" << setw(20) << "first name" << setw(20)
+       << "last name" << setw(20) << "phone" << endl;
+  cout << "===================================================================="
+          "=\n";
+  int count = 0;
+  for (int i = 0; i < size; i++) {
+    if (phonebook[i].phone != 0) {
+      cout << left << setw(5) << i << setw(20) << phonebook[i].f_name
+           << setw(20) << phonebook[i].l_name << setw(20) << phonebook[i].phone
+           << endl;
+      count++;
+    }
+  }
+  if (count == 0) {
+    cout << "There is no number to edit.\n";
+    cout << "Press Enter...";
+    cin.get();
+    cin.get();
+    return;
+  }
+  int idx;
+  cout << "index to edit: ";
+  cin >> idx;
+  if (idx < 0 || idx >= size || phonebook[idx].phone == 0) {
+    cout << "404, please try again\n";
+    cout << "index to edit: ";
+    cin >> idx;
+    if (idx < 0 || idx >= size || phonebook[idx].phone == 0) {
+      cout << "return to menu\n";
+      cout << "Press Enter...";
+      cin.get();
+      cin.get();
+      return;
+    }
+  }
+  cin.get();
+  cout << "Current: " << phonebook[idx].f_name << " " << phonebook[idx].l_name
+       << " " << phonebook[idx].phone << "\n";
+  string nf, nl, np;
+  cout << "new first name (Enter keep): ";
+  getline(cin, nf);
+  if (nf == "")
+    nf = phonebook[idx].f_name;
+  cout << "new last name (Enter keep): ";
+  getline(cin, nl);
+  if (nl == "")
+    nl = phonebook[idx].l_name;
+  cout << "new phone (Enter keep): ";
+  getline(cin, np);
+  int newPhone = phonebook[idx].phone;
+  if (np != "") {
+    int p = 0;
+    bool ok = true;
+    for (int k = 0; k < (int)np.length(); k++) {
+      if (np[k] < '0' || np[k] > '9')
+        ok = false;
+    }
+    if (ok) {
+      for (int k = 0; k < (int)np.length(); k++)
+        p = p * 10 + (np[k] - '0');
+      newPhone = p;
+    }
+  }
+  phonebook[idx].f_name = nf;
+  phonebook[idx].l_name = nl;
+  phonebook[idx].phone = newPhone;
+  cout << "Edited\n";
+  cout << "Press Enter...";
+  cin.get();
+}
 int main() {
   int n, i;
   while (true) {
@@ -118,9 +190,9 @@ int main() {
     case 4:
       del();
       break;
-    // case 5:
-    //   edit();
-    //   break;
+    case 5:
+      edit();
+      break;
     case 6:
       exit(0);
       break;
