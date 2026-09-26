@@ -46,6 +46,38 @@ int find(int ss = 0) {
   return -1;
 }
 
+void search() {
+  system("clear");
+
+  string searchVal;
+  cout << "Enter first or last name: ";
+  cin >> searchVal;
+
+  bool found = false;
+
+  for (int i = 0; i < size; i++) {
+    if (phonebook[i].phone != 0) {
+      if (phonebook[i].f_name == searchVal ||
+          phonebook[i].l_name == searchVal) {
+        cout << left << setw(10) << i
+             << setw(20) << phonebook[i].f_name
+             << setw(20) << phonebook[i].l_name
+             << "09" << phonebook[i].phone << endl;
+
+        found = true;
+      }
+    }
+  }
+
+  if (!found) {
+    cout << "No contact found.\n";
+  }
+
+  cout << "Press Enter to continue...";
+  cin.get();
+  cin.get();
+}
+
 void Add(int n) {
   system("clear");
 
@@ -224,45 +256,48 @@ int main() {
     n = menu();
 
     switch (n) {
-    case 1:
-      i = find();
+      case 1:
+        i = find();
 
-      if (i == -1) {
-        cout << "Memory is Full.........\n";
+        if (i == -1) {
+          cout << "Memory is Full.........\n";
+          cout << "Press Enter...";
+
+          cin.get();
+          cin.get();
+        } else {
+          Add(i);
+        }
+
+        break;
+      case 2:
+        search();
+        break;
+
+      case 3:
+        display();
+        break;
+
+      case 4:
+        del();
+        break;
+
+      case 5:
+        edit();
+        break;
+
+      case 6:
+        exit(0);
+        break;
+
+      default:
+        cout << "Please try again....(1-6)\n";
         cout << "Press Enter...";
 
         cin.get();
         cin.get();
-      } else {
-        Add(i);
-      }
 
-      break;
-
-    case 3:
-      display();
-      break;
-
-    case 4:
-      del();
-      break;
-
-    case 5:
-      edit();
-      break;
-
-    case 6:
-      exit(0);
-      break;
-
-    default:
-      cout << "Please try again....(1-6)\n";
-      cout << "Press Enter...";
-
-      cin.get();
-      cin.get();
-
-      break;
+        break;
     }
   }
 
